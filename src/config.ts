@@ -35,11 +35,11 @@ export default registerAs('config', () => {
 
     return {
         dataBase: {
-            name: process.env.POSTGRES_DB ?? urlPath || undefined,
+            name: process.env.POSTGRES_DB ?? (urlPath || undefined),
             port: parseInt(process.env.POSTGRES_PORT || databaseUrl?.port || '5432', 10),
-            user: process.env.POSTGRES_USER ?? databaseUrl?.username || undefined,
-            password: process.env.POSTGRES_PASSWORD ?? databaseUrl?.password || undefined,
-            host: process.env.POSTGRES_HOST ?? databaseUrl?.hostname || undefined,
+            user: process.env.POSTGRES_USER ?? (databaseUrl?.username || undefined),
+            password: process.env.POSTGRES_PASSWORD ?? (databaseUrl?.password || undefined),
+            host: process.env.POSTGRES_HOST ?? (databaseUrl?.hostname || undefined),
             ssl: shouldUseSsl(databaseUrl),
         },
         jwt: {
