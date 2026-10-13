@@ -1,11 +1,11 @@
 import { DataSource } from 'typeorm';
 import config from '../config';
 import * as dotenv from 'dotenv';
-import { enviroments } from '../enviroments';
+import { getEnvironmentFile } from '../enviroments';
 
 import { join } from 'path';
 
-const envFile = enviroments[process.env.NODE_ENV as keyof typeof enviroments] || enviroments.dev;
+const envFile = getEnvironmentFile(process.env.NODE_ENV);
 dotenv.config({ path: envFile });
 const configuration = config();
 
@@ -18,6 +18,7 @@ export const AppDataSource = new DataSource({
   database: configuration.dataBase.name,
   synchronize: false,
   logging: true,
+  ssl: configuration.dataBase.ssl,
   entities: [join(__dirname, '..', '**', '*.entity.{ts,js}')],
   migrations: [join(__dirname, 'migrations', '*.{ts,js}')],
   ssl: process.env.NODE_ENV === 'prod' ? { rejectUnauthorized: false } : false,

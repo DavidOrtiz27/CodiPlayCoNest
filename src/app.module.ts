@@ -5,7 +5,7 @@ import { DatabaseModule } from './database/database.module';
 
 import { ConfigModule } from '@nestjs/config';
 import * as Joi from 'joi';
-import { enviroments } from './enviroments';
+import { getEnvironmentFile } from './enviroments';
 import { UsersModule } from './users/users.module';
 import { RolesModule } from './roles/roles.module';
 import { PermissionsModule } from './permissions/permissions.module';
@@ -28,9 +28,7 @@ import { ProgressModule } from './progress/progress.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath:
-        enviroments[process.env.NODE_ENV as keyof typeof enviroments] ||
-        enviroments.dev,
+      envFilePath: getEnvironmentFile(process.env.NODE_ENV),
       load: [config],
       isGlobal: true,
       validationSchema: Joi.object({

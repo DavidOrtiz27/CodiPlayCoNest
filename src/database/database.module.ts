@@ -9,7 +9,7 @@ import config from '../config';
         TypeOrmModule.forRootAsync({
             inject: [config.KEY],
             useFactory: (configType: ConfigType<typeof config>) => {
-                const { user, host, name, password, port } = configType.dataBase;
+                const { user, host, name, password, port, ssl } = configType.dataBase;
                 return {
                     type: 'postgres',
                     host,
@@ -19,7 +19,7 @@ import config from '../config';
                     database: name,
                     synchronize: false,
                     autoLoadEntities: true,
-                    ssl: process.env.NODE_ENV === 'prod' ? { rejectUnauthorized: false } : false,
+                    ssl: ssl || (process.env.NODE_ENV === 'prod' ? { rejectUnauthorized: false } : false),
                 };
             },
         }),
