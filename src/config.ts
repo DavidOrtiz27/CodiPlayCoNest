@@ -43,7 +43,7 @@ export default registerAs('config', () => {
             ssl: shouldUseSsl(databaseUrl),
         },
         jwt: {
-            secret: process.env.JWT_SECRET,
+            secret: process.env.JWT_SECRET || 'codiplayco-prod-default-secret-change-me',
             expiresIn: parseInt(process.env.JWT_EXPIRES_IN ?? '3600', 10)
             // expiresIn: process.env.JWT_EXPIRES_IN,
         },
