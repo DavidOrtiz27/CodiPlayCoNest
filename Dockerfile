@@ -20,7 +20,6 @@ COPY --from=build /app/dist ./dist
 COPY --from=build /app/public ./public
 COPY --from=build /app/uploads ./uploads
 
-
 ENV NODE_ENV=prod
 EXPOSE 3000
 
